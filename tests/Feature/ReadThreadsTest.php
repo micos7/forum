@@ -32,7 +32,7 @@ class ThreadTest extends TestCase
      */
      public function a_user_can_read_a_single_thread()
      {
-        $response = $this->get('/threads/'.$this->thread->id);
+        $response = $this->get($this->thread->path());
         
         $response->assertSee($this->thread->title);
      }
@@ -40,6 +40,6 @@ class ThreadTest extends TestCase
      public function a_user_can_read_replies_that_are_associated_with_a_thread()
      {
         $reply = factory('App\Reply')->create(['thread_is' => $this->thread->id]);
-        $this->get('/threads/'.$this->thread->id)->assertSee($reply->body);
+        $this->get($this->thread->path())->assertSee($reply->body);
      }
 }
