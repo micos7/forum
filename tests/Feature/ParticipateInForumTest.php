@@ -11,9 +11,8 @@ class ParticipateInForumTest extends TestCase
     use DatabaseMigrations;
     /** @test */
     function unauthenticated_users_may_not_add_replies(){
-        $this->expectException('Illuminate\Auth\AuthenticationException');
         
-        $this->post('threads/1/replies',[]);
+        $this->withExceptionHandling()->post('threads/some/1/replies',[])->assertRedirect('/login');
     }
 
     /** @test */
