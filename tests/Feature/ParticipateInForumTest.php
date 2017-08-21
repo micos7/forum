@@ -27,4 +27,14 @@ class ParticipateInForumTest extends TestCase
         $this->get($thread->path())->assertSee($reply->body);
     }
 
+    /** @test */
+    function a_reply_requires_a_body(){
+        $this->withExceptionHandling()->signIn();
+
+        $thread = factory('App\Thread')->create();
+        $reply = factory('App\Reply',['body'=> null])->make();
+
+        $this->post($thread->path().'/replies',$reply->toArray())->assertSessionHasErrors('body');
+    }
+
 }
