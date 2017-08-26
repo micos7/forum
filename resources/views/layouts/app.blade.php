@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ app()->getLocale() }}">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,6 +14,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body style="padding-bottom:100px">
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
@@ -36,45 +38,62 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                       <li><a href="/threads">All threads</a></li>
+                        <li><a href="/threads">All threads</a></li>
+
+
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                
+                                    @foreach(App\Channel::all() as $channel)
+                                    <li><a class="dropdown-item" href="/threads/{{ $channel->slug }}">{{ $channel->name }}</a></li>
+                                    @endforeach
+                            </ul>
+                        </li>
+
+
+
+
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
-                                <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
 
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            {{ csrf_field() }}
-                                        </form>
-                                    </li>
-                                </ul>
-                            </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        {{ csrf_field() }}
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
                         @endif
                     </ul>
+                    </div>
                 </div>
-            </div>
         </nav>
 
         @yield('content')
-    </div>
+        </div>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}"></script>
 </body>
+
 </html>
