@@ -6,6 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use App\Channel;
 
 class ThreadTest extends TestCase
 {
@@ -60,12 +61,12 @@ class ThreadTest extends TestCase
      public function a_user_can_filter_threads_by_any_username(){
         $this->signIn(create('App\User', ['name' => 'JohnDoe']));
 
-        $threadByJohn = create('App\Thread',['user_id' => auth()->id]);
+        $threadByJohn = create('App\Thread',['user_id' => auth()->id()]);
         $threadNotByJohn = create('App\Thread');
 
         $this->get('threads?by=JohnDoe')
             ->assertSee($threadByJohn->title)
-            ->assertNotSee($threadNotByJohn->title);
+            ->assertDontSee($threadNotByJohn->title);
      }
      
 }
