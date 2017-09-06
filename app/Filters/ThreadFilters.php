@@ -21,10 +21,16 @@ class ThreadFilters
         if(!$username = $this->request->by){
             return $builder;
         }
-        
-            $user = User::where('name', $username)->firstOrFail();
-            return $builder->where('user_id',$user->id);
-        
+        return $this->by($builder,$username);
+    }
 
+    /**
+    * @param $builder
+    * @param $username
+    * @return mixed
+    */
+    public function by($builder, $username){
+        $user = User::where('name', $username)->firstOrFail();
+        return $builder->where('user_id',$user->id);
     }
 }
