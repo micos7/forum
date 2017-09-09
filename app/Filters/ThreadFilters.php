@@ -5,8 +5,9 @@ use App\User;
 
 class ThreadFilters extends Filters
 {
+    protected $filters = ['by'];
     /**
-    * @param $username
+    * @param string $username
     * @return mixed
     */
     
