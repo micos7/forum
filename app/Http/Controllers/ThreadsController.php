@@ -14,6 +14,12 @@ class ThreadsController extends Controller
     {
         $this->middleware('auth')->except(['index','show']);
     }
+    /**
+     * Display a listing of  threads.
+     * @param  Channel $channel
+     * @param  ThreadFilters $filters
+     * @return mixed
+     */
     private function getThreads(Channel $channel,ThreadFilters $filters){
         $threads = Thread::latest()->filter($filters);
         
@@ -22,8 +28,7 @@ class ThreadsController extends Controller
                 }
                 
                 
-                $threads = $threads->get();
-        return $threads;
+                return $threads->get();
     }
     /**
      * Display a listing of the resource.
